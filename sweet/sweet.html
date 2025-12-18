@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sweets Store</title>
+  <link rel="stylesheet" href="sweet.css">
+</head>
+<body>
+  <div id="loader" class="loader-container">
+    <div class="circle"></div>
+    <img src="image/logo.png" alt="sweets store" class="logo">
+  </div>
+
+  <script>
+    window.addEventListener('load', function() {
+      setTimeout(() => {
+        document.getElementById('loader').classList.add('hidden');
+        document.getElementById('content').classList.remove('hidden');
+      }, 1000);
+    });
+  </script>
+
+  <div id="content" class="hidden">
+
+    <header class="main-header">
+      <div class="header-logo">
+        <img src="image/st.png" alt="Sweet Store Logo">
+      </div>
+
+      <nav class="header-nav">
+        <ul>
+          <li><a href="sweet.html">Home</a></li>
+          <li class="dropdown" id="menuDropdown">
+            <button id="menuBtn" class="dropbtn" aria-haspopup="true" aria-expanded="false">
+              Menu ▾
+            </button>
+
+            <div class="dropdown-content" id="menuList" role="menu" aria-label="Main Menu">
+              <a role="menuitem" href="cookies.html">🍪 Cookies</a>
+              <a role="menuitem" href="donuts.html">🍩 Donuts</a>
+              <a role="menuitem" href="kunafa.html">🍮 Kunafa</a>
+              <a role="menuitem" href="Baklawa.html">🥮 Baklawa</a>
+              <a role="menuitem" href="Gateau.html">🍰 Gateau</a>
+              <a role="menuitem" href="croissant.html">🥐 Croissant</a>
+              <a role="menuitem" href="Candy.html">🍬 Candy</a>
+              <a role="menuitem" href="Sweet Gifts.html">🎁 Sweet Gifts</a>
+            </div>
+          </li>
+
+          <li><a href="about us.html">About us</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+      <div class="header-right">
+        <div class="icons">
+          <img class="icon fade-up" src="image/home.png" alt="home">
+          <img class="icon fade-up" src="image/shopping.png" alt="shopping">
+          <img class="icon fade-up" src="image/fav.png" alt="fav">
+          <img class="icon fade-up" src="image/person.png" alt="person">
+        </div>
+
+        <div class="search-box fade-up">
+          <input type="text" id="searchInput" placeholder="Search for sweets...">
+          <img id="searchBtn" src="image/search.png" alt="search">
+          <ul id="suggestions" class="suggestions-box"></ul>
+        </div>
+      </div>
+
+    </header>
+    <section class="hero-section">
+      <div class="hero-text fade-up">
+        <h1>Fresh • Lovely • Sweet</h1>
+        <h2>Welcome to Sweet Store 🍩✨</h2>
+        <p>Every dessert is made with love, fresh for your moments! 💖</p>
+      </div>
+
+      <div class="hero-img fade-up">
+        <img src="image/logo2.png" alt="Sweet Desserts">
+      </div>
+    </section>
+
+    <section class="popular-products">
+      <h2 class="fade-up">Popular Picks 🍰</h2>
+
+      <div class="product-grid">
+        <div class="product-card fade-up fade-up">
+          <img class="main-img" src="image/do6.png" alt="">
+          <img class="hover-img" src="image/do2.png" alt="">
+          <h3>Donut</h3>
+          <a href="donuts.html" class="view-btn">View More →</a>
+        </div>
+        <div class="product-card fade-up">
+          <img class="main-img" src="image/co3.png" alt="Cookies">
+          <img class="hover-img" src="image/co2.png" alt="Cookies Hover">
+          <h3>Soft Cookies</h3>
+          <a href="cookies.html" class="view-btn">View More →</a>
+        </div>
+        <div class="product-card fade-up">
+          <img class="main-img" src="image/c1.png" alt="Croissant">
+          <img class="hover-img" src="image/c3.png" alt="Croissant Hover">
+          <h3>Croissant</h3>
+          <a href="croissant.html" class="view-btn">View More →</a>
+        </div>
+        <div class="product-card fade-up">
+          <img class="main-img" src="image/g5.png" alt="Gateau">
+          <img class="hover-img" src="image/g2.png" alt="Gateau Hover">
+          <h3>Gateau</h3>
+          <a href="Gateau.html" class="view-btn">View More →</a>
+        </div>
+        <div class="product-card fade-up">
+          <img class="main-img" src="image/ca8.png" alt="Candy">
+          <img class="hover-img" src="image/ca2.png" alt="Candy Hover">
+          <h3>Candy</h3>
+          <a href="Candy.html" class="view-btn">View More →</a>
+        </div>
+        <div class="product-card fade-up">
+          <img class="main-img" src="image/s1.png" alt="Sweet Gifts">
+          <img class="hover-img" src="image/s2.png" alt="Sweet Gifts Hover">
+          <h3>Sweet Gifts</h3>
+          <a href="Sweet Gifts.html" class="view-btn">View More →</a>
+        </div>
+        <div class="product-card fade-up">
+          <img class="main-img" src="image/k5.png" alt="Kunafa">
+          <img class="hover-img" src="image/k2.png" alt="Kunafa Hover">
+          <h3>Kunafa</h3>
+          <a href="kunafa.html" class="view-btn">View More →</a>
+        </div>
+        <div class="product-card fade-up">
+          <img class="main-img" src="image/b8.png" alt="Baklawa">
+          <img class="hover-img" src="image/b1.png" alt="Baklawa Hover">
+          <h3>Baklawa</h3>
+          <a href="Baklawa.html" class="view-btn">View More →</a>
+        </div>
+
+      </div>
+    </section>
+
+  </div> 
+<footer class="main-footer">
+  <div class="footer-top">
+   
+    <div class="footer-col footer-brand">
+      <img src="image/st.png" alt="Sweet Store Logo">
+      <p>
+        Sweet Store brings you fresh, lovely and happy desserts every day.  
+        We sweeten your moments with love 🍰💗
+      </p>
+    </div>
+
+    <div class="footer-col">
+      <h3>Quick Links</h3>
+      <ul class="footer-links">
+      <li><a href="cookies.html">Cookies</a></li>
+      <li><a href="donuts.html">Donuts</a></li>
+      <li><a href="kunafa.html">Kunafa</a></li>
+      <li><a href="Baklawa.html">Baklawa</a></li>
+      <li><a href="Gateau.html">Gateau</a></li>
+      <li><a href="croissant.html">Croissant</a></li>
+      <li><a href="Candy.html">Candy</a></li>
+       <li><a href="Sweet Gifts.html">Sweet Gifts</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h3>Contact</h3>
+      <p>📍 Nablus – Palestine</p>
+      <p>📞 +970 59-000-0000</p>
+      <p>✉ sweetstore@gmail.com</p>
+    </div>
+
+    <div class="footer-col">
+      <h3>Follow Us</h3>
+      <div class="footer-social">
+        <img src="image/fa.png" alt="Facebook">
+        <img src="image/inst.png" alt="Instagram">
+        <img src="image/ti.png" alt="TikTok">
+        <img src="image/pint.png" alt="Pinterest">
+      </div>
+    </div>
+
+  </div>
+
+  <div class="footer-bottom">
+    <p>© 2025 Sweet Store · Made with 💖 by Tala Abu Alsoud</p>
+  </div>
+</footer>
+  <script src="js.js"></script>
+</body>
+</html>

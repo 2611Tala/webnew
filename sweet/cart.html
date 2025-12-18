@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cart - Sweet Store</title>
+  <link rel="stylesheet" href="sweet.css">
+  <style>
+    body {
+      background-color: #ffecec;
+      font-family: "Cairo", sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    h2 {
+      text-align: center;
+      color: #b34770;
+      margin-top: 40px;
+    }
+
+    .cart-container {
+      max-width: 1000px;
+      margin: 30px auto;
+      padding: 20px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 25px;
+    }
+
+    .cart-item {
+      background: #fff;
+      border-radius: 16px;
+      padding: 20px;
+      text-align: center;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+      transition: 0.3s;
+    }
+
+    .cart-item:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 6px 12px rgba(0,0,0,0.12);
+    }
+
+    .cart-item img {
+      width: 150px;
+      height: 150px;
+      object-fit: contain;
+    }
+
+    .cart-item h3 {
+      margin: 10px 0 5px;
+      color: #444;
+    }
+
+    .cart-item span {
+      color: #ff4da6;
+      font-weight: bold;
+      font-size: 17px;
+    }
+
+    .remove-btn {
+      margin-top: 10px;
+      padding: 8px 16px;
+      background-color: #ff6ea1;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .remove-btn:hover {
+      background-color: #e13e82;
+    }
+    .total-container {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      margin-top: 40px;
+      margin-bottom: 40px;
+    }
+
+    .total-text {
+      font-size: 1.4rem;
+      font-weight: bold;
+      color: #6b4e4e;
+      background-color: #ffe6ea;
+      padding: 10px 30px;
+      border-radius: 15px;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+      text-align: center;
+      transition: transform 0.3s ease;
+    }
+
+    .total-text:hover {
+      transform: scale(1.05);
+    }
+    .qty-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  margin: 10px 0;
+}
+
+.qty-btn {
+  width: 35px;
+  height: 35px;
+  border: none;
+  border-radius: 8px;
+  background-color: #ff7aa8;
+  color: white;
+  font-size: 22px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.qty-btn:hover {
+  background-color: #ff4d88;
+}
+
+.qty-number {
+  font-size: 18px;
+  font-weight: bold;
+  color: #444;
+}
+
+  </style>
+</head>
+<body>
+
+  <header class="main-header">
+    <div class="header-logo">
+      <img src="image/st.png" alt="Sweet Store Logo">
+    </div>
+    <nav class="header-nav">
+      <ul>
+        <li><a href="sweet.html">Home</a></li>
+        <li><a href="about us.html">About us</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="icons">
+      <img src="image/home.png" alt="home">
+      <img src="image/shopping.png" alt="shopping">
+      <img src="image/fav.png" alt="fav">
+      <img src="image/person.png" alt="person">
+    </div>
+  </header>
+<header class="menu-bar" id="Menu" >
+  <nav class="navbar">
+    <div class="search-box">
+      <input type="text" id="searchInput" placeholder="Search for sweets...">
+     <img id="searchBtn" src="image/search.png" alt="search">
+     <ul id="suggestions" class="suggestions-box"></ul>
+    </div>
+
+    <ul class="nav-links">
+      <li><a href="cookies.html">Cookies</a></li>
+      <li><a href="donuts.html">Donuts</a></li>
+      <li><a href="kunafa.html">Kunafa</a></li>
+      <li><a href="Baklawa.html">Baklawa</a></li>
+      <li><a href="Gateau.html">Gateau</a></li>
+      <li><a href="croissant.html">Croissant</a></li>
+      <li><a href="Candy.html">Candy</a></li>
+       <li><a href="Sweet Gifts.html">Sweet Gifts</a></li>
+    </ul>
+    <div class="right-space"></div>
+    
+  </nav>
+</header>
+
+  <h2>Your Cart</h2>
+
+  <div class="cart-container" id="cartContainer"></div>
+  <div class="total-container">
+    <p class="total-text" id="totalPrice">Total: 0₪</p>
+    <button id="checkoutBtn" class="checkout-btn">Order Now</button>
+</div>
+
+  <script>
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+const container = document.getElementById("cartContainer");
+const totalEl = document.getElementById("totalPrice");
+
+function renderCart() {
+  container.innerHTML = "";
+
+  if (cart.length === 0) {
+    container.innerHTML = "<p style='text-align:center;'>Your cart is empty 🛍️</p>";
+    totalEl.textContent = "Total: 0₪";
+    return;
+  }
+
+  let total = 0;
+
+  cart.forEach((item, index) => {
+    const card = document.createElement("div");
+    card.classList.add("cart-item");
+
+    card.innerHTML = `
+      <img src="${item.img}" alt="${item.name}">
+      <h3>${item.name}</h3>
+      <span>${item.price}</span>
+
+      <div class="qty-box">
+        <button class="qty-btn qty-minus" data-index="${index}">−</button>
+        <span class="qty-number">${item.qty}</span>
+        <button class="qty-btn qty-plus" data-index="${index}">+</button>
+      </div>
+
+      <button class="remove-btn" data-index="${index}">Remove</button>
+    `;
+
+    container.appendChild(card);
+    const num = parseFloat(String(item.price).replace(/[^\d.]/g, "")) || 0;
+    total += num * (item.qty || 1);
+  });
+
+  totalEl.textContent = `Total: ${total}₪`;
+
+  document.querySelectorAll(".qty-minus").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const i = btn.dataset.index;
+      if (cart[i].qty > 1) cart[i].qty--;
+      else cart.splice(i, 1);
+
+      localStorage.setItem("cart", JSON.stringify(cart));
+      renderCart();
+    });
+  });
+
+  document.querySelectorAll(".qty-plus").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const i = btn.dataset.index;
+      cart[i].qty = (cart[i].qty || 1) + 1;
+      localStorage.setItem("cart", JSON.stringify(cart));
+      renderCart();
+    });
+  });
+
+  document.querySelectorAll(".remove-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const i = btn.dataset.index;
+      cart.splice(i, 1);
+      localStorage.setItem("cart", JSON.stringify(cart));
+      renderCart();
+    });
+  });
+}
+renderCart();
+
+const orderBtn = document.getElementById("checkoutBtn");
+const checkoutModal = document.getElementById("checkoutModal");
+const cartDataInput = document.getElementById("cartDataInput");
+const totalInput = document.getElementById("totalInput");
+
+if (orderBtn && checkoutModal && cartDataInput && totalInput) {
+  orderBtn.addEventListener("click", () => {
+    cartDataInput.value = JSON.stringify(cart);
+
+    totalInput.value = totalEl.textContent
+      .replace("Total:", "")
+      .replace("₪", "")
+      .trim();
+
+    checkoutModal.style.display = "flex";
+  });
+}
+
+
+</script>
+
+<div id="checkoutModal" class="modal">
+  <div class="checkout-box">
+    <span class="close" onclick="closeCheckout()">&times;</span>
+
+    <h3>Complete Your Order 🍰</h3>
+
+    <form action="order.php" method="POST">
+        <input type="hidden" name="cartData" id="cartDataInput">
+       <input type="hidden" name="total" id="totalInput">
+       
+      <label>Your Name:</label>
+      <input type="text" name="name" required>
+
+      <label>Phone Number:</label>
+      <input type="tel" name="phone" required>
+
+      <label>Address:</label>
+      <textarea name="address" required></textarea>
+
+      <label>Payment Method:</label>
+      <select name="payment" required>
+        <option value="Visa">Visa</option>
+        <option value="Cash">Cash on Delivery</option>
+      </select>
+
+      
+      <button class="confirm-btn" type="submit">Confirm Order ✔</button>
+    </form>
+
+  </div>
+</div>
+<footer class="main-footer">
+  <div class="footer-top">
+  
+    <div class="footer-col footer-brand">
+      <img src="image/st.png" alt="Sweet Store Logo">
+      <p>
+        Sweet Store brings you fresh, lovely and happy desserts every day.  
+        We sweeten your moments with love 🍰💗
+      </p>
+    </div>
+
+    <div class="footer-col">
+      <h3>Quick Links</h3>
+      <ul class="footer-links">
+      <li><a href="sweet.html">Home</a></li>
+      <li><a href="cookies.html">Cookies</a></li>
+      <li><a href="donuts.html">Donuts</a></li>
+      <li><a href="kunafa.html">Kunafa</a></li>
+      <li><a href="Baklawa.html">Baklawa</a></li>
+      <li><a href="Gateau.html">Gateau</a></li>
+      <li><a href="croissant.html">Croissant</a></li>
+      <li><a href="Candy.html">Candy</a></li>
+       <li><a href="Sweet Gifts.html">Sweet Gifts</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h3>Contact</h3>
+      <p>📍 Nablus – Palestine</p>
+      <p>📞 +970 59-000-0000</p>
+      <p>✉ sweetstore@gmail.com</p>
+    </div>
+    
+    <div class="footer-col">
+      <h3>Follow Us</h3>
+      <div class="footer-social">
+        <img src="image/fa.png" alt="Facebook">
+        <img src="image/inst.png" alt="Instagram">
+        <img src="image/ti.png" alt="TikTok">
+        <img src="image/pint.png" alt="Pinterest">
+      </div>
+    </div>
+
+  </div>
+
+  <div class="footer-bottom">
+    <p>© 2025 Sweet Store · Made with 💖 by Tala Abu Alsoud</p>
+  </div>
+</footer>
+  <script src="js.js"></script>
+</body>
+</html>
